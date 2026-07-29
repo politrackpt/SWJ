@@ -1,0 +1,18 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+    Person["MP"] -- hasIdentifier --> pid["ID<br>(dcterms:identifier)"]
+    Person -- hasFullName --> name["Full Name<br>(foaf:name)"]
+    Person -- hasBirthDate --> dob["Date of Birth<br>(foaf:birthday)"]
+    Person -- hasGender --> gender["Sex/Gender<br>(schema:gender)"]
+    Person -- hasProfession --> prof["Profession<br/>(schema:jobTitle)"]
+    Person -- hasEducation --> Edu["Habilitations"]
+    Person -- hasAward --> Award["Decoration"]
+    Person -- hasTitle --> Title["Title"]
+    Person -- hasPublished --> Work["Published Work"]
+    Person -- servedMandate --> Mandate["Mandate"]
+    Person -- performedRole --> Role["Role"]
+    Mandate -- hasMembership --> Mem["Membership"]
+    Mem -- in --> Body["Organizational Body"]

@@ -1,0 +1,59 @@
+PREFIX m4s: <http://purl.org/map4scrutiny-core#>
+PREFIX polis-ini: <http://purl.org/polis/ar/initiatives#>
+PREFIX polis-core: <http://purl.org/polis/ar/core#>
+PREFIX polis-graph: <http://purl.org/polis/ar/graph#>
+PREFIX ocd: <http://dati.camera.it/ocd/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?legislatureNumber ?mp1ParliamentaryName ?mp2ParliamentaryName ?party1Acronym ?party2Acronym (COALESCE(GROUP_CONCAT(DISTINCT ?commonIdeology; separator=", "), "") AS ?commonIdeologies) ?coauthoredInitiatives
+WHERE {
+  {
+    SELECT ?legislatureNumber ?mp1ParliamentaryName ?mp2ParliamentaryName ?party1Acronym ?party2Acronym ?party1 ?party2 (COUNT(DISTINCT ?initiative) AS ?coauthoredInitiatives)
+    WHERE {
+      ?initiative polis-ini:hasAuthor ?mp1, ?mp2 ;
+                  polis-core:belongsToLegislature ?legislature .
+      FILTER (STR(?mp1) < STR(?mp2))
+
+      ?mp1 a m4s:Parliamentarian ; foaf:name ?mp1Name ;
+           ocd:rif_mandatoCamera ?mandate1 .
+      ?mp2 a m4s:Parliamentarian ; foaf:name ?mp2Name ;
+           ocd:rif_mandatoCamera ?mandate2 .
+
+      ?mandate1 polis-core:belongsToLegislature ?legislature ;
+                polis-core:parliamentaryName ?mp1ParliamentaryName ;
+                polis-core:hasMembership [ polis-core:isMemberOf ?party1 ] .
+      ?mandate2 polis-core:belongsToLegislature ?legislature ;
+                polis-core:parliamentaryName ?mp2ParliamentaryName ;
+                polis-core:hasMembership [ polis-core:isMemberOf ?party2 ] .
+
+      ?legislature dbo:number ?legislatureNumber .
+      ?party1 qudt:acronym ?party1Acronym .
+      ?party2 qudt:acronym ?party2Acronym .
+
+      FILTER (?party1 != ?party2)
+      FILTER (?party1Acronym != "PSD" && ?party2Acronym != "PSD")
+    }
+    GROUP BY ?legislatureNumber ?mp1ParliamentaryName ?mp2ParliamentaryName ?party1Acronym ?party2Acronym ?party1 ?party2
+    ORDER BY DESC(?coauthoredInitiatives) (?mp1ParliamentaryName)
+    LIMIT 10
+  }
+
+  OPTIONAL {
+    ?party1 owl:sameAs ?wd1 .
+    ?party2 owl:sameAs ?wd2 .
+
+    SERVICE <https://query.wikidata.org/sparql> {
+      ?wd1 wdt:P1142 ?ideologyNode .
+      ?wd2 wdt:P1142 ?ideologyNode .
+      ?ideologyNode rdfs:label ?commonIdeology .
+      FILTER(LANG(?commonIdeology) = "en")
+    }
+  }
+}
+GROUP BY ?legislatureNumber ?mp1ParliamentaryName ?mp2ParliamentaryName ?party1Acronym ?party2Acronym ?party1 ?party2 ?coauthoredInitiatives
+ORDER BY DESC(?coauthoredInitiatives) (?mp1ParliamentaryName)

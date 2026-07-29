@@ -1,0 +1,43 @@
+PREFIX polis-core: <http://purl.org/polis/ar/core#>
+PREFIX polis-graph: <http://purl.org/polis/ar/graph#>
+PREFIX polis-ini: <http://purl.org/polis/ar/initiatives#>
+PREFIX m4s: <http://purl.org/map4scrutiny-core#>
+PREFIX ocd: <http://dati.camera.it/ocd/>
+PREFIX pe: <https://ukparliament.github.io/ontologies/election/election-ontology.ttl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?constituencyName
+  ?electorate
+  ?seats
+  (?initiatives AS ?initiativeCount)
+  (ROUND((?initiatives / ?electorate) * 100000 * 10) / 10 AS ?initiativesPer100kElectors)
+WHERE {
+  ?constituency a pe:ConstituencyArea ;
+                foaf:name ?constituencyName ;
+                owl:sameAs ?wd .
+
+  OPTIONAL {
+    SELECT ?constituency (COUNT(DISTINCT ?initiative) AS ?initiatives)
+    WHERE {
+      ?initiative a polis-ini:Initiative ;
+                  polis-ini:hasAuthor ?mp ;
+                  polis-core:belongsToLegislature ?legislature .
+
+      ?mp a m4s:Parliamentarian ;
+          ocd:rif_mandatoCamera ?mandate .
+
+      ?mandate polis-core:belongsToLegislature ?legislature ;
+               polis-core:inConstituency ?constituency .
+    }
+    GROUP BY ?constituency
+  }
+
+  SERVICE <https://query.wikidata.org/sparql> {
+        OPTIONAL { ?wd wdt:P1831 ?electorate } .
+        OPTIONAL { ?wd wdt:P1410 ?seats } .
+  }
+}
+ORDER BY DESC(?initiativesPer100kElectors)

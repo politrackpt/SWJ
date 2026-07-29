@@ -1,0 +1,101 @@
+PREFIX polis-ini: <http://purl.org/polis/ar/initiatives#>
+PREFIX polis-graph: <http://purl.org/polis/ar/graph#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX polis-core: <http://purl.org/polis/ar/core#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX schema: <https://schema.org/>
+
+SELECT
+  (?bid AS ?BID)
+  ?legislature
+  #(SUBSTR(?iniTitle, 1, 30) AS ?title)
+  #(SUBSTR(?url, 1, 30) AS ?link)
+  #(?authorIds AS ?authors)
+  #(?votingDate AS ?data)
+  ?phase
+  ?result
+  ?unanime
+  (COALESCE(?proponentPartiesRaw, "") AS ?proposingParties)
+  (COALESCE(?abstentionPartiesRaw, "") AS ?abstenção)
+  (COALESCE(?againstPartiesRaw, "") AS ?contra)
+  (COALESCE(?inFavourPartiesRaw, "") AS ?favor)
+WHERE {
+
+    # General initiative information
+    ?initiative a polis-ini:Initiative ;
+        polis-core:identifier ?bid ;
+        dct:title ?iniTitle ;
+        polis-core:belongsToLegislature [ dbo:number ?legislature ] ;
+        polis-ini:hasContent [ schema:url ?url ]
+        .
+
+    # Authors
+    {
+        SELECT ?initiative (SUBSTR(GROUP_CONCAT(DISTINCT STR(?authorId); separator=", "), 1, 30) AS ?authorIds)
+        WHERE {
+            ?initiative polis-ini:hasAuthor [ polis-core:identifier ?authorId ] .
+        }
+        GROUP BY ?initiative
+    }
+
+    # Proponents
+    OPTIONAL {
+        SELECT ?initiative (SUBSTR(GROUP_CONCAT(DISTINCT STR(?proponent); separator=", "), 1, 30) AS ?proponentPartiesRaw)
+        WHERE {
+            {
+                ?initiative polis-ini:proponentType "Grupos Parlamentares" ;
+                            polis-ini:hasProponent/polis-core:isOfParty [ qudt:acronym ?proponent ] .
+            }
+            UNION
+            {
+                ?initiative polis-ini:proponentType ?proponent .
+                FILTER (?proponent != "Grupos Parlamentares")
+            }
+        }
+        GROUP BY ?initiative
+    }
+
+    # Most recent voting event
+    {
+      SELECT
+        ?initiative
+        ?votingDate
+        ?phase
+        ?result
+        ?unanime
+        (SUBSTR(GROUP_CONCAT(DISTINCT STR(?abstentionParty); separator=", "), 1, 30) AS ?abstentionPartiesRaw)
+        (SUBSTR(GROUP_CONCAT(DISTINCT STR(?againstParty); separator=", "), 1, 30) AS ?againstPartiesRaw)
+        (SUBSTR(GROUP_CONCAT(DISTINCT STR(?inFavourParty); separator=", "), 1, 30) AS ?inFavourPartiesRaw)
+      WHERE {
+        {
+          SELECT ?initiative (MAX(?voteDate) AS ?votingDate)
+          WHERE {
+            ?initiative polis-ini:hasEvent ?event .
+            ?event polis-ini:hasVote ?vote .
+            ?vote dct:date ?voteDate .
+          }
+          GROUP BY ?initiative
+        }
+
+        ?initiative polis-ini:hasEvent ?latestVotingEvent .
+        ?latestVotingEvent polis-ini:eventType ?phase ;
+          polis-ini:hasVote ?latestVote .
+        ?latestVote dct:date ?votingDate ;
+            polis-ini:result ?result ;
+            polis-ini:unanimous ?unanime .
+
+        OPTIONAL { ?latestVote polis-ini:hasAbstentionFrom/polis-core:isOfParty [ qudt:acronym ?abstentionParty ] . }
+        OPTIONAL { ?latestVote polis-ini:hasVoteAgainstFrom/polis-core:isOfParty [ qudt:acronym ?againstParty ] . }
+        OPTIONAL { ?latestVote polis-ini:hasVoteInFavourFrom/polis-core:isOfParty [ qudt:acronym ?inFavourParty ] . }
+      }
+      GROUP BY ?initiative ?votingDate ?phase ?result ?unanime
+    }
+
+}
+ORDER BY ?bid
+LIMIT 10

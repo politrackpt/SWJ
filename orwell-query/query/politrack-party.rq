@@ -1,0 +1,36 @@
+PREFIX polis-ini: <http://purl.org/polis/ar/initiatives#>
+PREFIX polis-graph: <http://purl.org/polis/ar/graph#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX polis-core: <http://purl.org/polis/ar/core#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+
+SELECT ?partyAcronym ?partyName ?website ?backgroundColor
+WHERE {
+    ?party a polis-core:Party ;
+        qudt:acronym ?partyAcronym ;
+        foaf:name ?partyName ;
+        owl:sameAs ?wd .
+
+    SERVICE <https://query.wikidata.org/sparql> {
+        VALUES ?wikidataParty {
+            wd:Q884840
+            wd:Q1054298
+            wd:Q63645885
+            wd:Q46122950
+            wd:Q19694667
+            wd:Q16947563
+            wd:Q2054840
+            wd:Q769829
+            wd:Q978086
+            wd:Q847263
+            wd:Q595575
+        }
+        OPTIONAL { ?wikidataParty wdt:P856 ?website }
+        OPTIONAL { ?wikidataParty wdt:P465 ?backgroundColor }
+    }
+    FILTER (?wd = ?wikidataParty)
+}
