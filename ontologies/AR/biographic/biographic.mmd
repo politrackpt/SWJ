@@ -1,0 +1,32 @@
+---
+config:
+  layout: elk
+---
+flowchart TB
+    %%MP(m4s:Parliamentarian) -- bio:hasHabilitation --> Edu(bio:Habilitation)
+    %%MP -- bio:hasTitle --> Title(bio:Title)
+    %%MP -- bio:authorOf --> Document(bibo:Document)
+    %%MP -- bio:hasRole --> Role(bio:Role)
+    PublishedWork(bio:PublishedWork)-.-> Document(bibo:Document)
+
+    Habilitation(bio:Habilitation) -- bio:hasHabilitationLevel --> Level(bio:HabilitationLevel)
+    Habilitation -- bio:hasHabilitationStatus --> Status(bio:HabilitationStatus)
+    Status -.-> C("bio:C")
+    Status -.-> F("bio:F")
+
+    Level -.-> bio:PrimarySchool("bio:PrimarySchool")
+    Level -.-> bio:MiddleSchool("bio:MiddleSchool")
+    Level -.-> bio:EarlyHighSchool("bio:EarlyHighSchool")
+    Level -.-> bio:HighSchool("bio:HighSchool")
+    Level -.-> bio:HigherEducation(" bio:HigherEducation")
+    Level -.-> bio:Bachelor("bio:Bachelor")
+    Level -.-> bio:Master("bio:Master")
+    Level -.-> bio:Postgrad("bio:Postgrad")
+ 
+
+    Role(bio:Role)
+    Title(bio:Title)
+
+    classDef outside fill:#FF9999,stroke:#333,color:#000
+    %%classDef coreNamespace fill:#1E90FF,stroke:#333,color:#FFF
+    class Document outside

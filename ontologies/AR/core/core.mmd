@@ -1,0 +1,79 @@
+---
+config:
+  layout: elk
+---
+flowchart TB
+    LS["ocd:sessioneLegislatura"] -- core:belongsToLegislature --> Leg["ocd:legislatura"]
+    PG["core:parliamentaryGroup"] -- core:isOfParty --> Party["core:Party"]
+    PG -- skos:broadMatch --> gruppoParlamentare["ocd:gruppoParlamentare"]
+    PG -- core:belongsToLegislature --> Leg
+
+    MP["core:MemberOfParliament"] -.-> Person["foaf:Person"]
+    MP -- ocd:rif_mandatoCamera --> Mandate["ocd:mandatoCamera"]
+    MP -- core:belongsToLegislature --> Leg
+    MP -- bio:hasHabilitation   --> H["bio:Habilitation"]
+    MP -- dbo:award --> Award["dbo:Award"]
+    MP -- bio:hasTitle --> Title["bio:Title"]
+    MP -- bio:authorOf --> Work["bio:PublishedWork"]
+    MP -- bio:hasRole --> Role["bio:Role"]
+    MP -- core:hasMembership --> M["core:Membership"]
+    MP -- mpact:didRequisition --> Requisition["ocd:richiestaParere"]
+    MP -- mpact:didYouthParliamentActivity --> YPA["mpact:YouthParliamentActivity"]
+    MP -- mpact:didCommissionActivity --> CommissionActivity["mpact:CommissionActivity"]
+    MP -- mpact:didParliamentaryActivity --> ParliamentaryActivity["mpact:ParliamentaryActivity"]
+    MP -- core:wasRapporteurIn --> Thing(owl:Thing)
+
+    MG["ocd:membroGoverno"] -.-> Person
+    MG -- core:holdsDuty --> Post["org:Post"]
+    %%MG -- ocd:rif_governo --> G["ocd:governo"]    
+  
+    Guest["core:Guest"] -.-> Person
+    Guest -- core:holdsDuty --> Post
+
+    Mandate -- core:holdsDuty --> Post
+    Mandate["ocd:mandatoCamera"]-- core:belongsToLegislature --> Leg
+    Mandate -- core:hasMembership --> M["core:Membership"]
+    %%Mandate -- ocd:tipoProclamazione --> Situation["ocd:proclamazione"]
+
+    OB["ocd:organo"] -- core:belongsToLegislature --> Leg
+
+    C["core:Comission"] -.-> OB
+    C -- core:isPublishedInDAR --> DP["ini:DARPublication"]
+    C -- core:isSubComissionOf --> C
+    C -- core:hasSubComission --> C
+
+    WG["core:WorkingGroup"] -.-> OB
+    AR-WG["core:ARWorkingGroup"] -.-> OB
+
+    core:PAR -.-> Post
+    core:VicePAR -.-> Post
+    core:Secretary -.-> Post
+    core:ViceSecretary -.-> Post
+    
+    core:Withdrawal -.-> Situation["ocd:proclamazione"]
+    core:Incumbent -.-> Situation
+    core:PermantentIncumbent -.-> Situation
+    core:TemporaryIncumbent -.-> Situation
+    core:Deceased -.-> Situation
+    core:Disqualified -.-> Situation
+    core:LossOfMandate -.-> Situation
+    core:Resigned -.-> Situation
+    core:Alternate -.-> Situation
+    core:Suspended -.-> Situation
+      
+
+    M -- core:isMemberOf --> Thing
+    M -- core:hasRole --> Role["bio:Role"]
+
+    Party -.- Organisation["org:Organization"]
+    %%ConstituencyArea["pe:ConstituencyArea"]
+
+
+    classDef outside fill:#FF9999,stroke:#333,color:#000
+    classDef bioNamespace fill:#FFFF00,stroke:#333,color:#000
+    classDef mpactNamespace fill:#FF0000,stroke:#333,color:#FFF
+    classDef iniNamespace fill:#006400,stroke:#333,color:#FFF
+    class G,OB,Leg,LS,Award,TiOB,Organisation,gruppoParlamentare,Thing,ConstituencyArea,Situation,Mandate,Person,G,MG,Post outside
+    class Role,H,Title,Work bioNamespace
+    class YPA,CommissionActivity,ParliamentaryActivity,Requisition mpactNamespace
+    class DP iniNamespace

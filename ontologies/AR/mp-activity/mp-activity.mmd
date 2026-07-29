@@ -1,0 +1,102 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+    %%Req -- core:belongsToLegislature --> Leg
+    %%Req -- core:belongsToLegislativeSession --> LegSession
+    Req(ocd:richiestaParere) -- mpact:toPublicEntityType --> PET(mpact:PublicEntityType)
+
+    PET -.-> Agent(prov:Agent)
+    
+    mpact:Request["mpact:Request"] -.-> Req
+    mpact:Inquiry["mpact:Inquiry"] -.-> Req
+    mpact:AC["mpact:AC"] -.-> PET
+    mpact:AL["mpact:AL"] -.-> PET
+    mpact:AR["mpact:AR"] -.-> PET
+    mpact:EI["mpact:EI"] -.-> PET
+    mpact:RA["mpact:RA"] -.-> PET
+
+    PAct(mpact:ParliamentaryActivity) -- core:belongsToLegislature --> Leg
+    PAct -.-> Activity(prov:Activity)
+    mpact:AGP["mpact:AGP"] -.-> PAct
+    mpact:CER["mpact:CER"] -.-> PAct
+    mpact:DEB["mpact:DEB"] -.-> PAct
+    mpact:DES["mpact:DES"] -.-> PAct
+    mpact:DPO["mpact:DPO"] -.-> PAct
+    mpact:DPR["mpact:DPR"] -.-> PAct
+    mpact:EGP["mpact:EGP"] -.-> PAct
+    mpact:EVN["mpact:EVN"] -.-> PAct
+    mpact:GOD["mpact:GOD"] -.-> PAct
+    mpact:IMU["mpact:IMU"] -.-> PAct
+    mpact:INI["mpact:INI"] -.-> PAct
+    mpact:ITG["mpact:ITG"] -.-> PAct
+    mpact:MOC["mpact:MOC"] -.-> PAct
+    mpact:OEX["mpact:OEX"] -.-> PAct
+    mpact:PEC["mpact:PEC"] -.-> PAct
+    mpact:PEG["mpact:PEG"] -.-> PAct
+    mpact:PET["mpact:PET"] -.-> PAct
+    mpact:PII["mpact:PII"] -.-> PAct
+    mpact:POR["mpact:POR"] -.-> PAct
+    mpact:PRC["mpact:PRC"] -.-> PAct
+    mpact:PRG["mpact:PRG"] -.-> PAct
+    mpact:PUE["mpact:PUE"] -.-> PAct
+    mpact:REP["mpact:REP"] -.-> PAct
+    mpact:RSI["mpact:RSI"] -.-> PAct
+    mpact:SES["mpact:SES"] -.-> PAct
+    mpact:VOT["mpact:VOT"] -.-> PAct
+
+    FPG(mpact:FriendshipParliamentaryGroup) -- core:belongsToLegislature --> Leg
+    FPG -.-> F(foaf:Group)
+    PA(mpact:PublicAccount) -- core:belongsToLegislature --> Leg(ocd:legislatura)
+
+    Delegation(mpact:Delegation) -.-> F
+    Delegation -- core:belongsToLegislature --> Leg
+    Delegation -- core:belongsToLegislativeSession --> LegSession(ocd:sessioneLegislatura)
+
+    PD(mpact:PermanentDelegation) -.-> Delegation
+    PD -- mpact:hasPermanentDelegationMeeting --> PDM(mpact:PermanentDelegationMeeting)
+
+    TD(mpact:TemporaryDelegation) -.-> Delegation
+    TD -- sem:hasPlace --> Place(sem:Place)
+    TD -- mpact:hasDelegationScope --> DegS(mpact:DelegationScope)
+
+    PDM -.-> Meeting(dbo:Meeting)
+    PDM -- sem:hasPlace --> Place
+
+    mpact:National["mpact:National"] -.-> DegS
+    mpact:International["mpact:International"] -.-> DegS
+
+    YPA(mpact:YouthParliamentActivity) -- mpact:heldAt --> School(dbo:School)
+    YPA -- mpact:inConstituency --> Constituency(core:Constituency)
+    YPA -- core:belongsToLegislature --> Leg
+    YPA -.-> Activity
+
+    School -- mpact:isSchoolType --> SchoolT(mpact:SchoolType)
+    mpact:Basic["mpact:Basic"] -.-> SchoolT
+    mpact:Secondary["mpact:Secondary"] -.-> SchoolT
+
+    ComissionAct(mpact:CommissionActivity) -.-> PAct
+    ComissionAct -- core:belongsToLegislature --> Leg
+    ComissionAct -- mpact:relatedCommission --> Commission(core:Commission)
+
+    Audition(mpact:Audition) -.-> ComissionAct
+    Audition -- prov:wasAssociatedWith --> ThirdP(mpact:ThirdPartyEntity)
+
+    ThirdP -.-> Agent(foaf:Agent)
+
+    Hearing(mpact:Hearing) -.-> ComissionAct
+    Hearing -- prov:wasAssociatedWith --> ThirdP
+
+    Event(mpact:Event) -.-> ComissionAct
+
+    mpact:Debate["mpact:Debate"] -.-> Event
+    mpact:Cerimony["mpact:Cerimony"] -.-> Event
+    mpact:Conference["mpact:Conference"] -.-> Event
+    mpact:Others["mpact:Others"] -.-> Event
+    mpact:Visit["mpact:Visit"] -.-> Event
+
+    classDef outside fill:#FF9999,stroke:#333,color:#000
+    classDef coreNamespace fill:#1E90FF,stroke:#333,color:#FFF
+    class Req,Leg,LegSession,School,Place,Activity,Agent,Meeting,F outside
+    class Constituency,Commission coreNamespace

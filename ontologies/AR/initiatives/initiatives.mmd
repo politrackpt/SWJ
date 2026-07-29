@@ -1,0 +1,101 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+   
+    Ini(ini:Initiative) -- core:belongsToLegislature --> Leg(ocd:legislatura)
+    Ini -.-> Atto(ocd:Atto)
+    Ini -- core:belongsToLegislativeSession --> LS(ocd:sessioneLegislatura)
+    Ini -- ini:hasAuthor --> MP(m4s:Parliamentarian)
+    Ini -- ini:hasProponent --> MP & CG(ini:CitizenGroup) & Com(ini:Commission) & Gov(ocd:governo) & RLA(ini:RegionalLegislativeAssembly) & PG(ini:ParliamentaryGroup)
+    Ini -- ini:hasAnnex --> Document(bibo:Document)
+    Ini -- ini:hasEvent -->Event(ini:Event)
+    Ini -- ini:grewOutOf --> EU(ini:EuropeanInitiative) & Ini
+    Ini -- ini:ledTo --> Ini
+    Ini -- ini:receivedChangeProposal --> CP(ini:ChangeProposal)
+    Ini -- ini:hasRelatedPetition --> P(ini:Petition)
+    Ini -- ini:hasContent --> Document
+
+    Eu -.-> Atto(ocd:Atto)
+
+    ConstitutionalRevisionProject("ini:ConstitutionalRevisionProject") -.->Ini
+    DeliberationProject("ini:DeliberationProject") -.->Ini
+    LawProject("ini:LawProject") -.->Ini
+    LawProposal("ini:LawProposal") -.->Ini
+    ParliamentaryAppreciation("ini:ParliamentaryAppreciation") -.->Ini
+    ParliamentaryInquiry("ini:ParliamentaryInquiry") -.->Ini
+    PopularReferendumInitiative("ini:PopularReferendumInitiative") -.->Ini
+    Ratification("ini:Ratification") -.->Ini
+    ResolutionProposal("ini:ResolutionProposal") -.->Ini
+    ResolutionProject("ini:ResolutionProject") -.->Ini
+    RulesOfProcedureProject("ini:RulesOfProcedureProject") -.->Ini
+
+    CP(ChangeProposal) -- ini:isProposedBy --> MP
+    CP -- ini:isPublishedInDAR --> DAR(ini:DARPublication)
+    CP -- ini:isProposedBy --> PG
+
+    %%DAR -.-> PUB("Publication")
+    %%RP("ReportPublication") -.-> PUB
+    DAR -- core:belongsToLegislature --> Leg
+    DAR -- core:belongsToLegislativeSession --> LS
+    DAR -.-> Pubb(ocd:pubblicistica)
+
+    DARSeries1("ini:DARSeries1") -.-> DAR
+    DARSeries2("ini:DARSeries2") -.-> DAR
+    DARSeparata("ini:DARSeparata") -.-> DAR
+    DARSeries2A("ini:DARSeries2A") -.-> DAR
+    DARSeries2B("ini:DARSeries2B") -.-> DAR
+    DARSeries2C("ini:DARSeries2C") -.-> DAR
+    DARSeries2D("ini:DARSeries2D") -.-> DAR
+    DARSeries2E("ini:DARSeries2E") -.-> DAR
+    DARSeries1A("ini:DARSeries1A") -.-> DAR
+    DARSeries2CRC("ini:DARSeries2CRC") -.-> DAR
+    DARSeries2CGOPOE("ini:DARSeries2CGOPOE") -.-> DAR
+    DARSeries2SCOE("ini:DARSeries2SCOE") -.-> DAR
+    DARSeries2CCEI("ini:DARSeries2CCEI") -.-> DAR
+    DARSeries2SOE("ini:DARSeries2SOE") -.-> DAR
+    
+    P(Petition) -- ini:belongsToLegislature --> Leg
+    P -- ini:belongsToLegislativeSession --> LS
+
+    RLA -- sem:hasPlace --> Place(sem:Place)
+
+    E(ini:Event) -- ini:approvesDiploma --> LDocument(bibo:Legislation)
+    E -- ini:hasDiscussion --> Discussion(ocd:discussione)
+    E -- ini:happensJointlyWithInitiative --> Ini
+    E -- ini:discussedJointlyWith --> P
+    E -- ini:hasAnnex --> Document(bibo:Document)
+    E -- ini:hasVote --> Vote(ocd:votazione)
+    E -- ini:receivedAppeal --> MP & PG
+    E -- ini:hasActivity --> Acttivity(prov:Activity)
+    E -- ini:isPublishedInDAR --> DAR
+
+    Vote -- ini:hasVoteAgainstFrom --> MP & PG
+    Vote -- ini:hasVoteInFavourFrom --> MP & PG
+    Vote -- ini:hasAbstensionFrom --> MP & PG
+    Vote -- ini:isAbsentee --> MP
+    Vote -- ini:isPublishedinDAR --> DAR
+
+    %%Discussion -- hasIntervention --> Intervention(Intervention)
+
+    Intervention(ocd:intervento) -- ini:isPublishedInDAR --> DAR
+    Intervention -- ini:hasSpeaker --> Person(foaf:Person)
+
+    CE(ini:CommissionEvent) -- ini:attributedToCommission --> Com
+    CE -- ini:hasAudition --> Audition(mpact:Audition)
+    CE -- ini:hasHearing --> Hearing(mpact:Hearing)
+    CE -- ini:isPubilshedInDAR --> DAR
+    CE -- ini:hasVote --> Vote
+    CE -- ini:hasTransmission --> Transmission(ini:Transmission)
+    CE -- ini:hasRapporteur --> MP
+    CE -- ini:hasPublishedReport --> DAR
+    CE -- ini:createsDocument --> Document
+    CE -- ini:hasSubCommission --> Com
+
+    classDef outside fill:#FF9999,stroke:#333,color:#000
+    %%classDef bioNamespace fill:#FFFF00,stroke:#333,color:#000
+    classDef mpactNamespace fill:#FF0000,stroke:#333,color:#FFF
+   %% classDef iniNamespace fill:#006400,stroke:#333,color:#FFF
+    class Document,LS,MP,Leg,Gov,Pubb,Place,Discussion,Vote,Activity,Person,Intervention outside
+    class Hearing,Audition mpactNamespace
