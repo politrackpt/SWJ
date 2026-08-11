@@ -6,10 +6,10 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix ocd: <http://dati.camera.it/ocd/> .
-@prefix m4s: <https://purl.org/map4scrutiny-core#> .
+@prefix m4s: <http://purl.org/map4scrutiny-core#> .
 @prefix schema:	<https://schema.org/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
-@prefix prov: <https://www.w3.org/ns/prov-o#> .
+@prefix prov: <http://www.w3.org/ns/prov-o#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix polis-mpact: <http://purl.org/polis/ar/mp-activity#> .
 @prefix polis-core: <http://purl.org/polis/ar/core#> .
@@ -20,20 +20,23 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"";
-	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço";
-	dct:contributor                 "Mariana Curado Malta", "João Bispo";
-    dct:issued                 		""^^schema:Date;
+	dct:description             	"This is the Inititives module from the Portuguese Political Structures (POLIS) Ontology."@en,
+                                    "Este é o módulo Initiatives (Iniciativas) da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
+	dct:contributor                 "João Bispo";
+    #dct:issued                 		""^^schema:Date;
 	dct:license                 	<http://creativecommons.org/publicdomain/zero/1.0/> ;
 	vann:preferredNamespacePrefix   "polis-ini:" ;
 	vann:preferredNamespaceUri      "http://purl.org/polis/ar/initiatives#" ;
 	owl:versionInfo					"1.0";
-    dct:description                    """The objective of the POLIS ontology is to (...)""" ;
-    #dct:bibliographicCitation ""@en ;
-    #dct:created ""^^xsd:date ;
+    dct:description                  "This ontology enables the modelling of data relating to initiatives presented in the Portuguese Parliament."@en,
+                                    "Esta ontologia permite a modelação de dados relativos às iniciativas apresentadas no Parlamento português."@pt  ;
+    dct:bibliographicCitation ""@en ;
+    dct:created "2026-04-15"^^xsd:date ;
     #dct:modified ""^^xsd:date ;
     dct:language "en", "pt" ;
 .
+
 
 #################################################################
 #    Classes
@@ -596,10 +599,10 @@
 
 :receivedAppeal rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , 
-		""@en ;
-    rdfs:label "received appeal"@en ,
-               ""@pt ;
+	dct:description "Relaciona uma iniciativa a um recurso"@pt , 
+		"Relates an initiative to an appeal"@en ;
+    rdfs:label "received appeal by"@en ,
+               "recebeu o recurso de"@pt ;
     rdfs:domain :Event ;
     rdfs:range [ rdf:type owl:Class ;
                   owl:unionOf ( polis-core:ParliamentaryGroup
@@ -609,8 +612,8 @@
 
 :receivedChangeProposal rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , 
-		""@en ;
+	dct:description "Relaciona uma iniciativa a uma proposta de alteração"@pt , 
+		"Relates an initiative to a change proposal"@en ;
     rdfs:label "received change proposal"@en ,
                "recebeu proposta de alteração"@pt ;
     rdfs:domain :Initiative ;
@@ -688,7 +691,11 @@
 		"Relates an event of an initiative to a vote that occurred during it"@en ;
     rdfs:label "has vote"@en ,
                "tem a votação"@pt ;
-    rdfs:domain :Event ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( :Event
+                                :CommissionEvent
+                              )
+                ] ;
     rdfs:range ocd:votazione .
 
 :isProposedBy rdf:type owl:ObjectProperty ;
@@ -900,6 +907,6 @@
 
 :CitizenGroup a foaf:Group, owl:NamedIndividual ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , ""@en ;
+	dct:description "Define um grupo de cidadãos, que pode se juntar para submeter uma iniciativa no parlamento"@pt , "Defines a group of citizens who may come together to propose an initiative in parliament"@en ;
     rdfs:label "Citizen Group"@en ,
                "Grupo de Cidadãos"@pt .

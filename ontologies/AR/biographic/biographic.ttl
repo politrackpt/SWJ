@@ -6,29 +6,31 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix ocd: <http://dati.camera.it/ocd/> .
-@prefix m4s: <https://purl.org/map4scrutiny-core#> .
+@prefix m4s: <http://purl.org/map4scrutiny-core#> .
 @prefix schema:	<https://schema.org/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix polis-core: <http://purl.org/polis/ar/core#> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
-@prefix : <http://purl.org/polis/ar/biographic#> .
+@prefix : <http://purl.org/polis/ar/biographical-profile#> .
 
-@base <http://purl.org/polis/ar/biographic#> .
+@base <http://purl.org/polis/ar/biographical-profile#> .
 
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"";
-	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço";
-	dct:contributor                 "Mariana Curado Malta", "João Bispo";
+	dct:description             	"This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology."@en,
+                                    "Este é o módulo Biographical-Profile (Perfil Biográfico) da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
+	dct:contributor                 "João Bispo";
     #dct:issued                 		""^^schema:Date;
 	dct:license                 	<http://creativecommons.org/publicdomain/zero/1.0/> ;
 	vann:preferredNamespacePrefix   "polis-bio:" ;
-	vann:preferredNamespaceUri      "http://purl.org/polis/ar/biographic#" ;
+	vann:preferredNamespaceUri      "http://purl.org/polis/ar/biographical-profile#" ;
 	owl:versionInfo					"1.0";
-    dct:description                    """The objective of the POLIS ontology is to (...)""" ;
-    #dct:bibliographicCitation ""@en ;
-    #dct:created ""^^xsd:date ;
+    dct:description                  "This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
+                                    "Esta ontologia permite a modelação de dados relativos à biografia dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."@pt;
+    dct:bibliographicCitation ""@en ;
+    dct:created "2026-04-15"^^xsd:date ;
     #dct:modified ""^^xsd:date ;
     dct:language "en", "pt" ;
 .
@@ -38,33 +40,33 @@
 #################################################################
 
 :Habilitation rdf:type owl:Class ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Habilitation"@en, "Habilitação"@pt ;
     dct:description "A habilitation that an MP has"@en, "Uma habilitação que um MP tem"@pt .
 
 :HabilitationLevel rdf:type owl:Class ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Habilitation Level"@en, "Nível de Habilitação"@pt ;
     dct:description "The level of habilitation of an MP"@en, "O nível de habilitação de um MP"@pt .
 
 :Role rdf:type owl:Class ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Role"@en, "Cargo"@pt ;
     dct:description "A role that an MP has in a given body"@en, "Uma função que um MP tem num dado órgão"@pt .
 
 :Title rdf:type owl:Class ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Title"@en, "Título"@pt ;
     dct:description "A title that an MP has"@en, "Um título que um MP tem"@pt .
 
 :HabilitationStatus rdf:type owl:Class ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Habilitation Status"@en, "Status de Habilitação"@pt ;
     dct:description "The status of habilitation of an MP"@en, "O estado da habilitação de um MP"@pt ;
     owl:oneOf ( :Complete :Incomplete ) .
 
 :PublishedWork rdf:type owl:Class ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Published Work"@en, "Obra Publicada"@pt ;
     dct:description "A published work that an MP is the author of"@en, "Uma obra publicada da qual um MP é autor"@pt ;
     rdfs:subClassOf bibo:Document .
@@ -74,7 +76,7 @@
 #################################################################
 
 :doneBefore rdf:type owl:DatatypeProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "has done before"@en, "fez antes"@pt ;
     dct:description "Indicates if an MP has performed a role before"@en, "Indica se um MP já realizou um cargo previamente"@pt ;
     rdfs:domain :Role ;
@@ -85,42 +87,42 @@
 #################################################################
 
 :authorOf rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "author of"@en, "autor de"@pt ;
     dct:description "Indicates that an MP is the author of a published word"@en, "Indica que um MP é autor de uma dada obra publicada"@pt ;
     rdfs:domain m4s:Parliamentarian ;
     rdfs:range :PublishedWork .
 
 :hasRole rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "has role"@en, "tem cargo"@pt ;
     dct:description "Indicates that an MP performed a given role"@en, "Indica que um MP realizou um dado cargo"@pt ;
     rdfs:domain m4s:Parliamentarian ;
     rdfs:range :Role .
 
 :hasTitle rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "has title"@en, "tem título"@pt ;
     dct:description "Indicates that an MP has a given title"@en, "Indica que um MP tem um dado título"@pt ;
     rdfs:domain m4s:Parliamentarian ;
     rdfs:range :Title .
 
 :hasHabilitation rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "has habilitation"@en, "tem habilitação"@pt ;
     dct:description "Indicates that an MP has a given habilitation"@en, "Indica que um MP tem uma dada habilitação"@pt ;
     rdfs:domain m4s:Parliamentarian ;
     rdfs:range :Habilitation .
 
 :isHabilitationLevel rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "is habilitation level"@en, "é nível de habilitação"@pt ;
     dct:description "Indicates the level of habilitation of an MP"@en, "Indica o nível de habilitação de um MP"@pt ;
     rdfs:domain :Habilitation ;
     rdfs:range :HabilitationLevel .
 
 :hasHabilitationStatus rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "has habilitation status"@en, "tem status de habilitação"@pt ;
     dct:description "Indicates the status of habilitation of an MP"@en, "Indica o estado da habilitação de um MP"@pt ;
     rdfs:domain :Habilitation ;
@@ -131,65 +133,65 @@
 #################################################################
 
 :C rdf:type :HabilitationStatus, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Complete"@en, "Completo"@pt ;
     dct:description "Indicates that an MP has completed a given habilitation"@en, "Indica que um MP completou uma dada habilitação"@pt .
 
 :F rdf:type :HabilitationStatus, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Incomplete"@en, "Incompleto"@pt ;
     dct:description "Indicates that an MP has not completed a given habilitation"@en, "Indica que um MP não completou uma dada habilitação"@pt .
 
 :HighestLevelNotInformed a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Highest Level Not Informed"@en, "Nível mais alto não informado"@pt ;
     dbo:number "0"^^xsd:nonNegativeInteger;
     dct:description "Indicates that the highest level of habilitation of an MP is not informed"@en, "Indica que o nível mais alto de habilitação de um MP não é informado"@pt .
 
 :PrimarySchool a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Primary School"@en, "Ensino Primário"@pt ;
     dbo:number "9"^^xsd:nonNegativeInteger;
     dct:description "The primary school level of habilitation"@en, "O nível de habilitação do ensino primário"@pt .
 
 :MiddleSchool a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Middle School"@en, "2º Ciclo"@pt ;
     dbo:number "10"^^xsd:nonNegativeInteger;
     dct:description "The middle school level of habilitation"@en, "O nível de habilitação do 2º ciclo"@pt .
 
 :EarlyHighSchool a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Early High School"@en, "3º Ciclo"@pt ;
     dbo:number "11"^^xsd:nonNegativeInteger;
     dct:description "The early high school level of habilitation"@en, "O nível de habilitação do 3º ciclo"@pt .
 
 :HighSchool a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "High School"@en, "Ensino Secundário"@pt ;
     dbo:number "12"^^xsd:nonNegativeInteger;
     dct:description "The high school level of habilitation"@en  , "O nível de habilitação do ensino secundário"@pt .
 
 :HigherEducation a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Higher Education"@en, "Ensino Superior"@pt ;
     dbo:number "13"^^xsd:nonNegativeInteger;
     dct:description "The higher education level of habilitation"@en, "O nível de habilitação do ensino superior"@pt .
 
 :Bachelor a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Bachelor"@en, "Licenciatura"@pt ;
     dbo:number "14"^^xsd:nonNegativeInteger;
     dct:description "The bachelor level of habilitation"@en, "O nível de habilitação da licenciatura"@pt .
 
 :Master a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Master"@en, "Mestrado"@pt ;
     dbo:number "15"^^xsd:nonNegativeInteger;
     dct:description "The master level of habilitation"@en, "O nível de habilitação do mestrado"@pt .
 
 :Postgrad a :HabilitationLevel, owl:NamedIndividual ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/biographic#> ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Postgraduate"@en, "Pós-Graduação"@pt ;
     dbo:number "16"^^xsd:nonNegativeInteger ;
     dct:description "The postgraduate level of habilitation"@en, "O nível de habilitação da pós-graduação"@pt .

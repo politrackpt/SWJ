@@ -6,12 +6,13 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix ocd: <http://dati.camera.it/ocd/> .
-@prefix m4s: <https://purl.org/map4scrutiny-core#> .
+@prefix m4s: <http://purl.org/map4scrutiny-core#> .
 @prefix schema:	<https://schema.org/> .
 @prefix org: <http://www.w3.org/ns/org#> .
-@prefix pe: <https://ukparliament.github.io/ontologies/election/election-ontology.ttl#> .
+@prefix pe: <http://parliament.uk/ontologies/election/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix m4i: <http://w3id.org/nfdi4ing/metadata4ing#> .
 @prefix polis-ini: <http://purl.org/polis/ar/initiatives#> .
 @prefix polis-bio: <http://purl.org/polis/ar/biographic#> .
 @prefix : <http://purl.org/polis/ar/core#> .
@@ -21,17 +22,19 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"";
-	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço";
-	dct:contributor                 "Mariana Curado Malta", "João Bispo";
-    dct:issued                 		""^^schema:Date;
+	dct:description             	"This is the Core module from the Portuguese Political Structures (POLIS) Ontology."@en,
+                                    "Este é o módulo Core da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
+	dct:contributor                 "João Bispo";
+    #dct:issued                 		""^^schema:Date;
 	dct:license                 	<http://creativecommons.org/publicdomain/zero/1.0/> ;
 	vann:preferredNamespacePrefix   "polis-core:" ;
 	vann:preferredNamespaceUri      "http://purl.org/polis/ar/core#" ;
 	owl:versionInfo					"1.0";
-    dct:description                    """The objective of the POLIS ontology is to (...)""" ;
-    #dct:bibliographicCitation ""@en ;
-    #dct:created ""^^xsd:date ;
+    dct:description                 "This ontology enables the modelling of the core institutional structure of the Portuguese Parliament."@en,
+                                    "Esta ontologia permite modelar a estrutura institucional central do Parlamento português."@pt;
+    dct:bibliographicCitation ""@en ;
+    dct:created "2026-04-15"^^xsd:date ;
     #dct:modified ""^^xsd:date ;
     dct:language "en", "pt" ;
 .
@@ -70,7 +73,7 @@
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
     rdfs:label "Comissão"@pt ,
                "Commission"@en ;
-	dct:description ""@pt , ""@en .
+	dct:description "Representa uma comissão no parlamento"@pt , "Represents a commission in parliament"@en .
 
 :PAR rdf:type owl:Class ;
     rdfs:subClassOf org:Post ;
@@ -181,7 +184,7 @@
 #################################################################
 
 :identifier rdf:type owl:DatatypeProperty ;
-    rdfs:subPropertyOf <http://w3id.org/nfdi4ing/metadata4ing#identifier> ;
+    rdfs:subPropertyOf m4i:identifier ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
     rdfs:label "identifier"@en, "identificador"@pt ;
     dct:description "An unique identifier to identify something"@en, "Um identificar único para identificar algo"@pt ;
@@ -240,13 +243,6 @@
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
     rdfs:domain :Membership .
 
-:holdsSituation rdf:type owl:ObjectProperty ;
-    rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
-    rdfs:domain ocd:mandatoCamera ;
-    rdfs:range :SituationHolding ;
-    rdfs:label "holds situation"@en, "exercita situação"@pt ;
-    dct:description "Relates the mandate of a MP to a situation they hold"@en, "Relaciona um deputado a uma situação que exerçam"@pt .
-
 :holdsDuty rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
     rdfs:range org:Post ;
@@ -293,9 +289,11 @@
 #    Individuals
 #################################################################
 
-:PresidentOfTheAssemblyOfTheRepublic a ocd:membroGoverno, owl:NamedIndividual ;
+:PresidentOfTheAssemblyOfTheRepublic a m4s:Parliamentarian, owl:NamedIndividual ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
     rdf:type :PAR ;
     rdfs:label "President of the Assembly of the Republic"@en, "Presidente da Assembleia da República"@pt ;
-    dct:description "The President of the Assembly of the Republic is the presiding officer of the Assembly of the Republic, responsible for chairing its sessions and representing it in external relations."@en,
-                    "O Presidente da Assembleia da República é o presidente da Assembleia da República, responsável por presidir às suas sessões e representá-la nas relações externas."@pt .
+    dct:description "The President of the Assembly of the Republic is the presiding officer of the Assembly of the Republic, responsible for chairing its sessions and representing it in external relations"@en,
+                    "O Presidente da Assembleia da República é o presidente da Assembleia da República, responsável por presidir às suas sessões e representá-la nas relações externas"@pt ;
+    rdfs:comment "It is preferred to use core:PAR class and core:holdsDuty when the MP who is acting as a the President of the Assembly of the Republic is known. Otherwise, this owl:NamedIndividual serves as an optional use to represent a President of the Assembly of the Republic."@en,
+        "É preferível utilizar a classe core:PAR e core:holdsDuty quando é conhecido o Deputado que exerce o cargo de Presidente da Assembleia da República. Caso contrário, este owl:NamedIndividual pode ser utilizado opcionalmente para representar um Presidente da Assembleia da República."@pt .
