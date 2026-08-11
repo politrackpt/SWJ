@@ -20,8 +20,8 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"This is the Inititives module from the Portuguese Political Structures (POLIS) Ontology."@en,
-                                    "Este é o módulo Initiatives (Iniciativas) da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:description             	"This is the Inititives module from the Portuguese Political Structures (POLIS) Ontology. This ontology enables the modelling of data relating to initiatives presented in the Portuguese Parliament."@en,
+                                    "Este é o módulo Initiatives (Iniciativas) da ontologia Portuguese Political Structures (POLIS). Esta ontologia permite a modelação de dados relativos às iniciativas apresentadas no Parlamento português."@pt;
 	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
 	dct:contributor                 "João Bispo";
     #dct:issued                 		""^^schema:Date;
@@ -29,8 +29,6 @@
 	vann:preferredNamespacePrefix   "polis-ini:" ;
 	vann:preferredNamespaceUri      "http://purl.org/polis/ar/initiatives#" ;
 	owl:versionInfo					"1.0";
-    dct:description                  "This ontology enables the modelling of data relating to initiatives presented in the Portuguese Parliament."@en,
-                                    "Esta ontologia permite a modelação de dados relativos às iniciativas apresentadas no Parlamento português."@pt  ;
     dct:bibliographicCitation ""@en ;
     dct:created "2026-04-15"^^xsd:date ;
     #dct:modified ""^^xsd:date ;

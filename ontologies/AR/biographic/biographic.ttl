@@ -18,8 +18,8 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology."@en,
-                                    "Este é o módulo Biographical-Profile (Perfil Biográfico) da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:description             	"This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
+                                    "Este é o módulo Biographical-Profile (Perfil Biográfico) da ontologia Portuguese Political Structures (POLIS). Esta ontologia permite a modelação de dados relativos à biografia dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."@pt;
 	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
 	dct:contributor                 "João Bispo";
     #dct:issued                 		""^^schema:Date;
@@ -27,8 +27,6 @@
 	vann:preferredNamespacePrefix   "polis-bio:" ;
 	vann:preferredNamespaceUri      "http://purl.org/polis/ar/biographical-profile#" ;
 	owl:versionInfo					"1.0";
-    dct:description                  "This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
-                                    "Esta ontologia permite a modelação de dados relativos à biografia dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."@pt;
     dct:bibliographicCitation ""@en ;
     dct:created "2026-04-15"^^xsd:date ;
     #dct:modified ""^^xsd:date ;

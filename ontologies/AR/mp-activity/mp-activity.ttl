@@ -23,8 +23,8 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"This is the MP-Activities module from the Portuguese Political Structures (POLIS) Ontology."@en,
-                                    "Este é o módulo MP-Activities (Atividades de um Deputado) da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:description             	"This is the MP-Activities module from the Portuguese Political Structures (POLIS) Ontology. This ontology enables the modelling of data relating to the activities of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
+                                    "Este é o módulo MP-Activities (Atividades de um Deputado) da ontologia Portuguese Political Structures (POLIS). Esta ontologia permite a modelação de dados relativos às atividades dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."@pt;
 	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
 	dct:contributor                 "João Bispo";
    # dct:issued                 		""^^schema:Date;
@@ -32,8 +32,6 @@
 	vann:preferredNamespacePrefix   "polis-mpact:" ;
 	vann:preferredNamespaceUri      "http://purl.org/polis/ar/mp-activities#" ;
 	owl:versionInfo					"1.0";
-    dct:description                  "This ontology enables the modelling of data relating to the activities of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
-									"Esta ontologia permite a modelação de dados relativos às atividades dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."@pt;
    # dcterms:bibliographicCitation ""@en ;
     dct:created "2026-04-15"^^xsd:date ;
    # dcterms:modified ""^^xsd:date ;

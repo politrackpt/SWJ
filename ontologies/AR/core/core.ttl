@@ -22,8 +22,8 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"This is the Core module from the Portuguese Political Structures (POLIS) Ontology."@en,
-                                    "Este é o módulo Core da ontologia Portuguese Political Structures (POLIS)."@pt;
+	dct:description             	"This is the Core module from the Portuguese Political Structures (POLIS) Ontology. This ontology enables the modelling of the core institutional structure of the Portuguese Parliament."@en,
+                                    "Este é o módulo Core da ontologia Portuguese Political Structures (POLIS). Esta ontologia permite modelar a estrutura institucional central do Parlamento português."@pt;
 	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
 	dct:contributor                 "João Bispo";
     #dct:issued                 		""^^schema:Date;
@@ -31,8 +31,6 @@
 	vann:preferredNamespacePrefix   "polis-core:" ;
 	vann:preferredNamespaceUri      "http://purl.org/polis/ar/core#" ;
 	owl:versionInfo					"1.0";
-    dct:description                 "This ontology enables the modelling of the core institutional structure of the Portuguese Parliament."@en,
-                                    "Esta ontologia permite modelar a estrutura institucional central do Parlamento português."@pt;
     dct:bibliographicCitation ""@en ;
     dct:created "2026-04-15"^^xsd:date ;
     #dct:modified ""^^xsd:date ;
