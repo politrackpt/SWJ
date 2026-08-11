@@ -5,14 +5,14 @@
     <style>
         #pylode {
             position: fixed;
-            top: 130px;
-            left: -80px;
+            top: 205px;
+            left: -150px;
             font-size: small;
             transform: rotate(-90deg);
             color: grey;
         }
         #pylode a {
-            font-size: 2em;
+            font-size: 1.5em;
             font-weight: bold;
             text-decoration: none;
             color: #005A9C;
@@ -28,6 +28,12 @@
         }
         #pylode #version {
             font-size: 1.0em;
+        }
+
+        #profile {
+            font-style: italic;
+            font-size: 1.25em;
+            color: darkred!important;
         }
 
         .cardinality {
@@ -48,16 +54,21 @@
         dd {
             margin-bottom: 10px;
             padding-top: 7px;
+            line-height: 1.6em;
         }
 
-        #metadata ul,
-        #classes ul {
+        ul.pylodelitlist {
             list-style-type: none;
+            margin-left: -40px;
         }
 
         #metadata ul li,
         #classes ul li {
-            margin-left: -40px;
+            margin-bottom: 10px;
+        }
+
+        #metadata dd p {
+          margin: 0 0 1em 0;
         }
 
         ul.hlist {
@@ -67,12 +78,19 @@
             background-color: #F4FFFF;
         }
 
-        ul.hierarchy {
-            border: 1px solid navy;
-            padding: 5px 25px 5px 25px;
+        div.hierarchy {
+            margin-bottom: 30px;
             background-color: #F4FFFF;
+            padding: 10px;
         }
 
+        ul.hierarchy {=
+            padding: 5px 25px 5px 25px;
+        }
+
+        ul.hierarchy li {
+            margin-top:5px;
+        }
 
         ul.hlist li {
             display: inline;
@@ -124,7 +142,10 @@
             border-bottom: 1px solid navy;
         }
         h4 { font: bold 100% sans-serif }
-        h5 { font: italic 100% sans-serif }
+        h5 {
+            font: italic 100% sans-serif;
+            margin-bottom: 10px;
+        }
         h6 { font: small-caps 100% sans-serif }
 
         body {
@@ -136,7 +157,7 @@
             background-position: top left;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            text-align: justify;
+            text-align: left;
         }
 
         section {
@@ -159,7 +180,9 @@
         .sup-p,
         .sup-ni,
         .sup-con,
-        .sup-col {
+        .sup-col,
+        .sup-ns,
+        .sup-ps {
             cursor:help;
         }
 
@@ -199,6 +222,14 @@
             color:darkred;
         }
 
+        .sup-ns {
+            color:lightgreen;
+        }
+
+        .sup-ps {
+            color:lightblue;
+        }
+
         sup {
             margin-left: -3px;
         }
@@ -213,49 +244,68 @@
             text-decoration: none;
         }
 
-#toc {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    height: 100%;
-    overflow-y: auto;
-    padding: 10px;
-    border: solid 1px navy;
-    font-size: small;
-    width: 180px;
-}
-#toc h3 {
-    margin-top: 5px;
-}
+        #toc {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 2;
+            height: 100%;
+            overflow-y: auto;
+            padding: 10px;
+            border: solid 1px navy;
+            font-size: small;
+            width: 180px;
+        }
+        #toc h3 {
+            margin-top: 5px;
+        }
 
-#toc ul {
-    list-style: none;
-    padding-left: 0;
-}
+        #toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
 
-#toc .first > li {
-    margin-top: 5px;
-}
+        #toc .first > li {
+            margin-top: 5px;
+        }
 
-#toc .second,
-#toc .third {
-    padding-left: 10px;
-}
+        #toc .second,
+        #toc .third {
+            padding-left: 10px;
+        }
 
-#content {
-    width: calc(100% - 150px);
-}
+        .second li {
+            margin-top: 0.5em;
+        }
 
-.hover_property {
-    cursor: help;
-    text-decoration: none;
-    border-bottom: dashed 1px;
-}
+        #content {
+            width: calc(100% - 150px);
+        }
 
-.setclass {
-    list-style-type: none;
-}
+        .hover_property {
+            cursor: help;
+            text-decoration: none;
+            border-bottom: dashed 1px;
+        }
+
+        .setclass {
+            list-style-type: none;
+        }
+
+        code{
+            word-wrap: break-word;
+          }
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+        td {
+            word-wrap: break-word;
+            line-height: 1.6em ;
+        }
+        #legend table.entity {
+            width: 25%;
+        }
 	</style>
     <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABhklEQVQ4jbWPzStEURjG3yQLirlGKUnKFO45Z+SjmXvnnmthQcpCoVhYmD/AwmJiI3OvZuZc2U3UlKU0/gAslMw9JgvhHxAr2fko7r0jHSsl+TgbTz2Lt5731/MASEiJW9ONml2QyX6rsGalmnT74v8BDf12hxJfpV8d1uwNKUBYszabdFv84L8B9X0rESVmmUup2fme0cVhJWaZHw4NWL1SewEAfDe6H3Dy6Ll456WEJsRZS630MwCAOI20ei5OBpxse5zcBZw8eS4uPpfIuDiCainIg9umBCU0GZzgLZ9Hn31OgoATL+CkLDGB5H1OKj4nFd/FBxUXJ0UZNb4edw/6nLyJXaj5FeCVyPLNIVmYK8TG1IwWb16L1gEACAFV90ftoT8bdOX0EeyY99gxBXZMgRz6qGb1KantAACI0UvE6F5XJqEjpsdURouI0Vt5gGOUkUNnPu7ObGIIMfNaGqDmjDRi9FZldF1lRgYzeqUyeoiY4ag5Iy3RgOYRM8+/M2bG8efsO4hGrpmJseyMAAAAAElFTkSuQmCC" rel="icon" sizes="16x16" type="image/png">
     <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAC40lEQVRYhe2UT0hUQRzHp6Iss1B3VZKIDbbdfW9mnoi4f3zzjkJQeOgS0SEIb1EWBGGlLLu460zQPQM1unUIIjA6rfpm6ZAhHjoIRVQUFUlEbG+euTsdXG1d3VL3bVD4g+9h+L35fT/8fvN7ADgY9aHY5fpIvK82HO9ysu66wxWOzbkjcekKx0a2ALYA/n2AGi3a6ArFezcidziecQygNhhrcUficjP6PwBqtGijKxy/thnVBePHywYoDsFhl53GV8SEcsTx4usCMLUewTVpc23BNvEzm6Neyf1+KcG2vwqwUjgrOJq2JmHftwmkVBRGTvncFodnbI7vChO/FRznCmHsNM7aHM9Yk7Df5iqsLMw9sMNOK2g+jS4IEz0UJv4iuJZb2RltWnB4UZqH6ioGAgAAGe5vtiZhtzDx7OoRadLmeM7m6IRjhnLMW2Vx1bA5GhAmnhIcz6/xNj4Ujsky8UspwfayjDPjsF2Y6L7N8Vzx/BfP+KPg6LbgSqd8DnfJW2CnbaLhfH5ephpqygJYvQU4Z3P82TLRsDDhUTnmrSq+Y3N0Mg+Xldy/zwEAnLMWZ3pHpNExmfLs/t0dOdVcbT0JeKxUwFP2VljjqiE47Jp53LTXNxhsUZjerTByXWX6VZWRs/4bIQ2ACv+UAomgDzLCISNZxAxZKMhIDjLy1JfsaK+I+eGBUBNk5E2x8RogX/PdcDZUqieWTSh5D6nOVKqfhoycUmlHFFIyu5RXqf7AcQDISCpv/tqbMBqK883RtmpISRoxQyJKPgGn3wNk5NEigDFa6hslqV/Kj+FdBQD0bshIDlKSLlVcoWQo36UhR80BAMB73lulMn0EMpJTqD6qJiOt3mho/8GbkT2BZNgDB/V+RI0fkOrT3kRIVQbaDizJm2hdNbINBxwk5xAj3yEjuV9rZ1iIkgxixkLBA83mz8uCjLwoGwAx0vOnFSy5mtR4VTaAQvVORMnwZgSpzkrV/QmdE2tKe46+MQAAAABJRU5ErkJggg==" rel="icon" sizes="32x32" type="image/png">
@@ -263,14 +313,11 @@
     <script id="schema.org" type="application/ld+json">
 [
   {
-    "@id": "http://purl.org/polis/ar/biographic#",
+    "@id": "http://purl.org/polis/ar/biographical-profile#",
     "@type": [
       "https://schema.org/DefinedTermSet"
     ],
     "https://schema.org/contributor": [
-      {
-        "@value": "Mariana Curado Malta"
-      },
       {
         "@value": "João Bispo"
       }
@@ -281,32 +328,33 @@
       },
       {
         "@value": "João Miguel da Silva Lourenço"
+      },
+      {
+        "@value": "Mariana Curado Malta"
       }
     ],
     "https://schema.org/dateCreated": [
       {
         "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": ""
-      }
-    ],
-    "https://schema.org/dateIssued": [
-      {
-        "@type": "https://schema.org/Date",
-        "@value": ""
-      }
-    ],
-    "https://schema.org/dateModified": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": ""
+        "@value": "2026-04-15"
       }
     ],
     "https://schema.org/description": [
       {
-        "@value": ""
+        "@language": "en",
+        "@value": "This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology."
       },
       {
-        "@value": "The objective of the POLIS ontology is to (...)"
+        "@language": "pt",
+        "@value": "Este é o módulo Biographical-Profile (Perfil Biográfico) da ontologia Portuguese Political Structures (POLIS)."
+      },
+      {
+        "@language": "en",
+        "@value": "This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament."
+      },
+      {
+        "@language": "pt",
+        "@value": "Esta ontologia permite a modelação de dados relativos à biografia dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."
       }
     ],
     "https://schema.org/license": [
@@ -334,7 +382,7 @@
               <strong>IRI</strong>
             </dt>
             <dd>
-              <code>http://purl.org/polis/ar/biographic#</code>
+              <code>http://purl.org/polis/ar/biographical-profile#</code>
             </dd>
           </div>
           <div>
@@ -348,9 +396,10 @@
               <a class="hover_property" href="http://purl.org/dc/terms/creator" title="An entity responsible for making the resource. Defined in DCMI Metadata Terms">Creator</a>
             </dt>
             <dd>
-              <ul>
+              <ul class="pylodelitlist">
                 <li><p>Tiago Ribeiro de Sá Cruz</p></li>
                 <li><p>João Miguel da Silva Lourenço</p></li>
+                <li><p>Mariana Curado Malta</p></li>
               </ul>
             </dd>
           </div>
@@ -358,30 +407,13 @@
             <dt>
               <a class="hover_property" href="http://purl.org/dc/terms/contributor" title="An entity responsible for making contributions to the resource. Defined in DCMI Metadata Terms">Contributor</a>
             </dt>
-            <dd>
-              <ul>
-                <li><p>Mariana Curado Malta</p></li>
-                <li><p>João Bispo</p></li>
-              </ul>
-            </dd>
+            <dd><p>João Bispo</p></dd>
           </div>
           <div>
             <dt>
               <a class="hover_property" href="http://purl.org/dc/terms/created" title="Date of creation of the resource. Defined in DCMI Metadata Terms">Date Created</a>
             </dt>
-            <dd></dd>
-          </div>
-          <div>
-            <dt>
-              <a class="hover_property" href="http://purl.org/dc/terms/modified" title="Date on which the resource was changed. Defined in DCMI Metadata Terms">Date Modified</a>
-            </dt>
-            <dd></dd>
-          </div>
-          <div>
-            <dt>
-              <a class="hover_property" href="http://purl.org/dc/terms/issued" title="Date of formal issuance of the resource. Defined in DCMI Metadata Terms">Date Issued</a>
-            </dt>
-            <dd></dd>
+            <dd><p>2026-04-15</p></dd>
           </div>
           <div>
             <dt>
@@ -408,7 +440,7 @@
               <a class="hover_property" href="http://purl.org/vocab/vann/preferredNamespaceUri" title="None. Defined in None">Preferred Namespace Uri</a>
             </dt>
             <dd>
-              <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+              <a href="http://purl.org/polis/ar/biographical-profile#">http://purl.org/polis/ar/biographical-profile#</a>
             </dd>
           </div>
           <div>
@@ -416,9 +448,11 @@
               <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
             </dt>
             <dd>
-              <ul>
-                <li></li>
-                <li><p>The objective of the POLIS ontology is to (...)</p></li>
+              <ul class="pylodelitlist">
+                <li><p>This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology.</p></li>
+                <li><p>Este é o módulo Biographical-Profile (Perfil Biográfico) da ontologia Portuguese Political Structures (POLIS).</p></li>
+                <li><p>This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament.</p></li>
+                <li><p>Esta ontologia permite a modelação de dados relativos à biografia dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa.</p></li>
               </ul>
             </dd>
           </div>
@@ -426,6 +460,30 @@
       </div>
       <div class="section" id="classes">
         <h2>Classes</h2>
+        <h3 id="class-hierarchy">Class Hierarchy</h3>
+        <div class="hierarchy">
+          <ul class="hierarchy">
+            <li>
+              <a href="#Habilitation">Habilitation</a>
+            </li>
+            <li>
+              <a href="#HabilitationLevel">Habilitation Level</a>
+            </li>
+            <li>
+              <a href="#HabilitationStatus">Habilitation Status</a>
+            </li>
+            <li>
+              <a href="#PublishedWork">Published Work</a>
+            </li>
+            <li>
+              <a href="#Role">Role</a>
+            </li>
+            <li>
+              <a href="#Title">Title</a>
+            </li>
+          </ul>
+        </div>
+        <h3 id="class-definitions">Class Definitions</h3>
         <div class="property entity" id="Habilitation">
           <h3>HabilitationHabilitação
             <sup class="sup-c" title="OWL/RDFS Class">c</sup>
@@ -434,7 +492,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#Habilitation</code>
+                <code>http://purl.org/polis/ar/biographical-profile#Habilitation</code>
               </td>
             </tr>
             <tr>
@@ -442,7 +500,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -450,7 +508,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>A habilitation that an MP has</p></li>
                   <li><p>Uma habilitação que um MP tem</p></li>
                 </ul>
@@ -458,19 +516,19 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inDomainOf" title="Inverse of rdfs:domain. Defined in Ontology Documentation Profile">In Domain Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inDomainOf" title="Inverse of rdfs:domain. Defined in Ontology Documentation Profile">In Domain Of</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li>
                     <span>
-                      <a href="#isHabilitationLevel">isHabilitationLevel</a>
+                      <a href="#isHabilitationLevel">is habilitation level</a>
                       <sup class="sup-op" title="OWL Object Property">op</sup>
                     </span>
                   </li>
                   <li>
                     <span>
-                      <a href="#hasHabilitationStatus">hasHabilitationStatus</a>
+                      <a href="#hasHabilitationStatus">has habilitation status</a>
                       <sup class="sup-op" title="OWL Object Property">op</sup>
                     </span>
                   </li>
@@ -479,11 +537,11 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#hasHabilitation">hasHabilitation</a>
+                  <a href="#hasHabilitation">has habilitation</a>
                   <sup class="sup-op" title="OWL Object Property">op</sup>
                 </span>
               </td>
@@ -498,7 +556,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#HabilitationLevel</code>
+                <code>http://purl.org/polis/ar/biographical-profile#HabilitationLevel</code>
               </td>
             </tr>
             <tr>
@@ -506,7 +564,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -514,7 +572,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>The level of habilitation of an MP</p></li>
                   <li><p>O nível de habilitação de um MP</p></li>
                 </ul>
@@ -522,509 +580,12 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#isHabilitationLevel">isHabilitationLevel</a>
+                  <a href="#isHabilitationLevel">is habilitation level</a>
                   <sup class="sup-op" title="OWL Object Property">op</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/superClassOf" title="Inverse of RDFS' subClassOf. Defined in Ontology Documentation Profile">Super Class Of</a>
-              </th>
-              <td>
-                <ul>
-                  <li>
-                    <span>
-                      <a href="#PrimarySchool">PrimarySchool</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#MiddleSchool">MiddleSchool</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#EarlyHighSchool">EarlyHighSchool</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#HighSchool">HighSchool</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#HigherEducation">HigherEducation</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#Bachelor">Bachelor</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#Master">Master</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <a href="#Postgrad">Postgrad</a>
-                      <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                    </span>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="PrimarySchool">
-          <h3>Primary SchoolEnsino Primário
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#PrimarySchool</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The primary school level of habilitation</p></li>
-                  <li><p>O nível de habilitação do ensino primário</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="MiddleSchool">
-          <h3>Middle School2º Ciclo
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#MiddleSchool</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The middle school level of habilitation</p></li>
-                  <li><p>O nível de habilitação do 2º ciclo</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="EarlyHighSchool">
-          <h3>Early High School3º Ciclo
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#EarlyHighSchool</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The early high school level of habilitation</p></li>
-                  <li><p>O nível de habilitação do 3º ciclo</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="HighSchool">
-          <h3>High SchoolEnsino Secundário
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#HighSchool</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The high school level of habilitation</p></li>
-                  <li><p>O nível de habilitação do ensino secundário</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="HigherEducation">
-          <h3>Higher EducationEnsino Superior
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#HigherEducation</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The higher education level of habilitation</p></li>
-                  <li><p>O nível de habilitação do ensino superior</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="Bachelor">
-          <h3>BachelorLicenciatura
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#Bachelor</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The bachelor level of habilitation</p></li>
-                  <li><p>O nível de habilitação da licenciatura</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="Master">
-          <h3>MasterMestrado
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#Master</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The master level of habilitation</p></li>
-                  <li><p>O nível de habilitação do mestrado</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="property entity" id="Postgrad">
-          <h3>PostgraduatePós-Graduação
-            <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-          </h3>
-          <table>
-            <tr>
-              <th>IRI</th>
-              <td>
-                <code>http://purl.org/polis/ar/biographic#Postgrad</code>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
-              </th>
-              <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
-              </th>
-              <td>
-                <ul>
-                  <li><p>The postgraduate level of habilitation</p></li>
-                  <li><p>O nível de habilitação da pós-graduação</p></li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#subClassOf" title="The subject is a subclass of a class. Defined in The RDF Schema vocabulary (RDFS)">Sub Class Of</a>
-              </th>
-              <td>
-                <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
-                  <sup class="sup-c" title="OWL/RDFS Class">c</sup>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/restriction" title="Convenience property for things that subclass owl:Restriction. Defined in Ontology Documentation Profile">Restriction</a>
-              </th>
-              <td>
-                <span>
-                  <span>
-                    <a href="http://dbpedia.org/ontology/number">dbo:number</a>value<br>
-                  </span>
                 </span>
               </td>
             </tr>
@@ -1038,7 +599,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#Role</code>
+                <code>http://purl.org/polis/ar/biographical-profile#Role</code>
               </td>
             </tr>
             <tr>
@@ -1046,7 +607,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1054,7 +615,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>A role that an MP has in a given body</p></li>
                   <li><p>Uma função que um MP tem num dado órgão</p></li>
                 </ul>
@@ -1062,22 +623,22 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inDomainOf" title="Inverse of rdfs:domain. Defined in Ontology Documentation Profile">In Domain Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inDomainOf" title="Inverse of rdfs:domain. Defined in Ontology Documentation Profile">In Domain Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#doneBefore">doneBefore</a>
+                  <a href="#doneBefore">has done before</a>
                   <sup class="sup-dp" title="OWL Datatype Property">dp</sup>
                 </span>
               </td>
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#hasRole">hasRole</a>
+                  <a href="#hasRole">has role</a>
                   <sup class="sup-op" title="OWL Object Property">op</sup>
                 </span>
               </td>
@@ -1092,7 +653,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#Title</code>
+                <code>http://purl.org/polis/ar/biographical-profile#Title</code>
               </td>
             </tr>
             <tr>
@@ -1100,7 +661,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1108,7 +669,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>A title that an MP has</p></li>
                   <li><p>Um título que um MP tem</p></li>
                 </ul>
@@ -1116,11 +677,11 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#hasTitle">hasTitle</a>
+                  <a href="#hasTitle">has title</a>
                   <sup class="sup-op" title="OWL Object Property">op</sup>
                 </span>
               </td>
@@ -1135,7 +696,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#HabilitationStatus</code>
+                <code>http://purl.org/polis/ar/biographical-profile#HabilitationStatus</code>
               </td>
             </tr>
             <tr>
@@ -1143,7 +704,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1151,7 +712,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>The status of habilitation of an MP</p></li>
                   <li><p>O estado da habilitação de um MP</p></li>
                 </ul>
@@ -1159,11 +720,11 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#hasHabilitationStatus">hasHabilitationStatus</a>
+                  <a href="#hasHabilitationStatus">has habilitation status</a>
                   <sup class="sup-op" title="OWL Object Property">op</sup>
                 </span>
               </td>
@@ -1178,7 +739,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#PublishedWork</code>
+                <code>http://purl.org/polis/ar/biographical-profile#PublishedWork</code>
               </td>
             </tr>
             <tr>
@@ -1186,7 +747,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1194,7 +755,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>A published work that an MP is the author of</p></li>
                   <li><p>Uma obra publicada da qual um MP é autor</p></li>
                 </ul>
@@ -1210,11 +771,11 @@
             </tr>
             <tr>
               <th>
-                <a class="hover_property" href="https://w3id.org/profile/ontdoc/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
+                <a class="hover_property" href="https://linked.data.gov.au/def/ontpub/inRangeOf" title="Inverse of rdfs:range. Defined in Ontology Documentation Profile">In Range Of</a>
               </th>
               <td>
                 <span>
-                  <a href="#authorOf">authorOf</a>
+                  <a href="#authorOf">author of</a>
                   <sup class="sup-op" title="OWL Object Property">op</sup>
                 </span>
               </td>
@@ -1224,6 +785,30 @@
       </div>
       <div class="section" id="objectproperties">
         <h2>Object Properties</h2>
+        <h3 id="object-property-hierarchy">Object Property Hierarchy</h3>
+        <div class="hierarchy">
+          <ul class="hierarchy">
+            <li>
+              <a href="#authorOf">author of</a>
+            </li>
+            <li>
+              <a href="#hasHabilitation">has habilitation</a>
+            </li>
+            <li>
+              <a href="#hasHabilitationStatus">has habilitation status</a>
+            </li>
+            <li>
+              <a href="#hasRole">has role</a>
+            </li>
+            <li>
+              <a href="#hasTitle">has title</a>
+            </li>
+            <li>
+              <a href="#isHabilitationLevel">is habilitation level</a>
+            </li>
+          </ul>
+        </div>
+        <h3 id="object-property-definitions">Object Property Definitions</h3>
         <div class="property entity" id="authorOf">
           <h3>author ofautor de
             <sup class="sup-op" title="OWL Object Property">op</sup>
@@ -1232,7 +817,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#authorOf</code>
+                <code>http://purl.org/polis/ar/biographical-profile#authorOf</code>
               </td>
             </tr>
             <tr>
@@ -1240,7 +825,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1248,7 +833,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates that an MP is the author of a published word</p></li>
                   <li><p>Indica que um MP é autor de uma dada obra publicada</p></li>
                 </ul>
@@ -1259,7 +844,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#domain" title="A domain of the subject property. Defined in The RDF Schema vocabulary (RDFS)">Domain</a>
               </th>
               <td>
-                <a href="https://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
+                <a href="http://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
               </td>
             </tr>
             <tr>
@@ -1268,7 +853,7 @@
               </th>
               <td>
                 <span>
-                  <a href="#PublishedWork">PublishedWork</a>
+                  <a href="#PublishedWork">Published Work</a>
                   <sup class="sup-c" title="OWL/RDFS Class">c</sup>
                 </span>
               </td>
@@ -1283,7 +868,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#hasRole</code>
+                <code>http://purl.org/polis/ar/biographical-profile#hasRole</code>
               </td>
             </tr>
             <tr>
@@ -1291,7 +876,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1299,7 +884,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates that an MP performed a given role</p></li>
                   <li><p>Indica que um MP realizou um dado cargo</p></li>
                 </ul>
@@ -1310,7 +895,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#domain" title="A domain of the subject property. Defined in The RDF Schema vocabulary (RDFS)">Domain</a>
               </th>
               <td>
-                <a href="https://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
+                <a href="http://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
               </td>
             </tr>
             <tr>
@@ -1334,7 +919,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#hasTitle</code>
+                <code>http://purl.org/polis/ar/biographical-profile#hasTitle</code>
               </td>
             </tr>
             <tr>
@@ -1342,7 +927,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1350,7 +935,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates that an MP has a given title</p></li>
                   <li><p>Indica que um MP tem um dado título</p></li>
                 </ul>
@@ -1361,7 +946,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#domain" title="A domain of the subject property. Defined in The RDF Schema vocabulary (RDFS)">Domain</a>
               </th>
               <td>
-                <a href="https://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
+                <a href="http://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
               </td>
             </tr>
             <tr>
@@ -1385,7 +970,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#hasHabilitation</code>
+                <code>http://purl.org/polis/ar/biographical-profile#hasHabilitation</code>
               </td>
             </tr>
             <tr>
@@ -1393,7 +978,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1401,7 +986,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates that an MP has a given habilitation</p></li>
                   <li><p>Indica que um MP tem uma dada habilitação</p></li>
                 </ul>
@@ -1412,7 +997,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#domain" title="A domain of the subject property. Defined in The RDF Schema vocabulary (RDFS)">Domain</a>
               </th>
               <td>
-                <a href="https://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
+                <a href="http://purl.org/map4scrutiny-core#Parliamentarian">m4s:Parliamentarian</a>
               </td>
             </tr>
             <tr>
@@ -1436,7 +1021,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#isHabilitationLevel</code>
+                <code>http://purl.org/polis/ar/biographical-profile#isHabilitationLevel</code>
               </td>
             </tr>
             <tr>
@@ -1444,7 +1029,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1452,7 +1037,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates the level of habilitation of an MP</p></li>
                   <li><p>Indica o nível de habilitação de um MP</p></li>
                 </ul>
@@ -1475,7 +1060,7 @@
               </th>
               <td>
                 <span>
-                  <a href="#HabilitationLevel">HabilitationLevel</a>
+                  <a href="#HabilitationLevel">Habilitation Level</a>
                   <sup class="sup-c" title="OWL/RDFS Class">c</sup>
                 </span>
               </td>
@@ -1490,7 +1075,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#hasHabilitationStatus</code>
+                <code>http://purl.org/polis/ar/biographical-profile#hasHabilitationStatus</code>
               </td>
             </tr>
             <tr>
@@ -1498,7 +1083,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1506,7 +1091,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates the status of habilitation of an MP</p></li>
                   <li><p>Indica o estado da habilitação de um MP</p></li>
                 </ul>
@@ -1529,7 +1114,7 @@
               </th>
               <td>
                 <span>
-                  <a href="#HabilitationStatus">HabilitationStatus</a>
+                  <a href="#HabilitationStatus">Habilitation Status</a>
                   <sup class="sup-c" title="OWL/RDFS Class">c</sup>
                 </span>
               </td>
@@ -1547,7 +1132,7 @@
             <tr>
               <th>IRI</th>
               <td>
-                <code>http://purl.org/polis/ar/biographic#doneBefore</code>
+                <code>http://purl.org/polis/ar/biographical-profile#doneBefore</code>
               </td>
             </tr>
             <tr>
@@ -1555,7 +1140,7 @@
                 <a class="hover_property" href="http://www.w3.org/2000/01/rdf-schema#isDefinedBy" title="The definition of the subject resource. Defined in The RDF Schema vocabulary (RDFS)">Is Defined By</a>
               </th>
               <td>
-                <a href="http://purl.org/polis/ar/biographic#">http://purl.org/polis/ar/biographic#</a>
+                <a href="http://purl.org/polis/ar/biographical-profile#">Portuguese Political Structures Ontology</a>
               </td>
             </tr>
             <tr>
@@ -1563,7 +1148,7 @@
                 <a class="hover_property" href="http://purl.org/dc/terms/description" title="An account of the resource. Defined in DCMI Metadata Terms">Description</a>
               </th>
               <td>
-                <ul>
+                <ul class="pylodelitlist">
                   <li><p>Indicates if an MP has performed a role before</p></li>
                   <li><p>Indica se um MP já realizou um cargo previamente</p></li>
                 </ul>
@@ -1596,7 +1181,7 @@
         <dl>
           <dt id=":">:</dt>
           <dd>
-            <code>http://purl.org/polis/ar/biographic#</code>
+            <code>http://purl.org/polis/ar/biographical-profile#</code>
           </dd>
           <dt id="bibo">bibo</dt>
           <dd>
@@ -1610,21 +1195,13 @@
           <dd>
             <code>http://purl.org/dc/terms/</code>
           </dd>
-          <dt id="dcterms">dcterms</dt>
-          <dd>
-            <code>http://purl.org/dc/terms/</code>
-          </dd>
           <dt id="m4s">m4s</dt>
           <dd>
-            <code>https://purl.org/map4scrutiny-core#</code>
+            <code>http://purl.org/map4scrutiny-core#</code>
           </dd>
           <dt id="owl">owl</dt>
           <dd>
             <code>http://www.w3.org/2002/07/owl#</code>
-          </dd>
-          <dt id="prov">prov</dt>
-          <dd>
-            <code>http://www.w3.org/ns/prov#</code>
           </dd>
           <dt id="rdf">rdf</dt>
           <dd>
@@ -1675,7 +1252,10 @@
           <span id="y">y</span>
           <span>LODE</span>
         </a>
-        <a href="https://github.com/rdflib/pyLODE/release/3.0.2" id="version">3.0.2</a>
+        <a href="https://github.com/rdflib/pyLODE/release/3.5.2" id="version">3.5.2</a>
+        <span> with the </span>
+        <a href="https://linked.data.gov.au/def/ontpub" id="profile">OntPub</a>
+        <span>profile</span>
       </p>
     </div>
     <div id="toc">
@@ -1690,48 +1270,30 @@
           <h4>
             <a href="#classes">Classes</a>
           </h4>
+          <h5>
+            <a href="#class-hierarchy" style="margin-left:10px;">Class Hierarchy</a>
+          </h5>
+          <h5>
+            <a href="#class-definitions" style="margin-left:10px;">Class Definitions</a>
+          </h5>
           <ul class="second">
-            <li>
+            <li style="margin-left:10px;">
               <a href="#Habilitation">HabilitationHabilitação</a>
             </li>
-            <li>
+            <li style="margin-left:10px;">
               <a href="#HabilitationLevel">Habilitation LevelNível de Habilitação</a>
             </li>
-            <li>
-              <a href="#PrimarySchool">Primary SchoolEnsino Primário</a>
-            </li>
-            <li>
-              <a href="#MiddleSchool">Middle School2º Ciclo</a>
-            </li>
-            <li>
-              <a href="#EarlyHighSchool">Early High School3º Ciclo</a>
-            </li>
-            <li>
-              <a href="#HighSchool">High SchoolEnsino Secundário</a>
-            </li>
-            <li>
-              <a href="#HigherEducation">Higher EducationEnsino Superior</a>
-            </li>
-            <li>
-              <a href="#Bachelor">BachelorLicenciatura</a>
-            </li>
-            <li>
-              <a href="#Master">MasterMestrado</a>
-            </li>
-            <li>
-              <a href="#Postgrad">PostgraduatePós-Graduação</a>
-            </li>
-            <li>
-              <a href="#Role">RoleCargo</a>
-            </li>
-            <li>
-              <a href="#Title">TitleTítulo</a>
-            </li>
-            <li>
+            <li style="margin-left:10px;">
               <a href="#HabilitationStatus">Habilitation StatusStatus de Habilitação</a>
             </li>
-            <li>
+            <li style="margin-left:10px;">
               <a href="#PublishedWork">Published WorkObra Publicada</a>
+            </li>
+            <li style="margin-left:10px;">
+              <a href="#Role">RoleCargo</a>
+            </li>
+            <li style="margin-left:10px;">
+              <a href="#Title">TitleTítulo</a>
             </li>
           </ul>
         </li>
@@ -1739,24 +1301,30 @@
           <h4>
             <a href="#objectproperties">Object Properties</a>
           </h4>
+          <h5>
+            <a href="#object-property-hierarchy" style="margin-left:10px;">Object Property Hierarchy</a>
+          </h5>
+          <h5>
+            <a href="#object-property-definitions" style="margin-left:10px;">Object Property Definitions</a>
+          </h5>
           <ul class="second">
-            <li>
+            <li style="margin-left:10px;">
               <a href="#authorOf">author ofautor de</a>
             </li>
-            <li>
-              <a href="#hasRole">has roletem cargo</a>
-            </li>
-            <li>
-              <a href="#hasTitle">has titletem título</a>
-            </li>
-            <li>
+            <li style="margin-left:10px;">
               <a href="#hasHabilitation">has habilitationtem habilitação</a>
             </li>
-            <li>
-              <a href="#isHabilitationLevel">is habilitation levelé nível de habilitação</a>
-            </li>
-            <li>
+            <li style="margin-left:10px;">
               <a href="#hasHabilitationStatus">has habilitation statustem status de habilitação</a>
+            </li>
+            <li style="margin-left:10px;">
+              <a href="#hasRole">has roletem cargo</a>
+            </li>
+            <li style="margin-left:10px;">
+              <a href="#hasTitle">has titletem título</a>
+            </li>
+            <li style="margin-left:10px;">
+              <a href="#isHabilitationLevel">is habilitation levelé nível de habilitação</a>
             </li>
           </ul>
         </li>
@@ -1788,16 +1356,10 @@
               <a href="#dct">dct</a>
             </li>
             <li>
-              <a href="#dcterms">dcterms</a>
-            </li>
-            <li>
               <a href="#m4s">m4s</a>
             </li>
             <li>
               <a href="#owl">owl</a>
-            </li>
-            <li>
-              <a href="#prov">prov</a>
             </li>
             <li>
               <a href="#rdf">rdf</a>
