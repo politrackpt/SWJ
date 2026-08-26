@@ -13,6 +13,7 @@ COPY data/ data/
 COPY mappings/ mappings/
 COPY ontology/ ontology/
 COPY functions/ functions/
+COPY sources/ sources/
 
 # Build the project (optional, but verifies the environment)
 RUN ./gradlew build --no-daemon
