@@ -218,28 +218,38 @@
 #################################################################
 
 :belongsToLegislature rdf:type owl:ObjectProperty ,
-            owl:FunctionalProperty ;
-            rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
-            rdfs:range ocd:legislatura .
+    owl:FunctionalProperty ;
+    rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
+    rdfs:range ocd:legislatura ;
+    rdfs:label "belongs to legislature"@en, "pertence à legislatura"@pt ;
+    dct:description "Relates something to a legislature"@en, "Relaciona algo a uma legislatura"@pt .
 
 :isOfParty rdf:type owl:ObjectProperty ,
              owl:FunctionalProperty ;
             rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
     rdfs:domain :ParliamentaryGroup ;
-    rdfs:range :Party .
+    rdfs:range :Party ;
+    rdfs:label "is of party"@en, "é do partido"@pt ;
+    dct:description "Relates a parliamentary group to the party it represents"@en, "Relaciona um grupo parlamentar ao partido que representa"@pt .
 
 
 :belongsToLegislativeSession rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
-     rdfs:range ocd:sessioneLegislatura .
+    rdfs:range ocd:sessioneLegislatura ;
+    rdfs:label "belongs to legislative session"@en, "pertence à sessão legislativa"@pt ;
+    dct:description "Relates something to a legislative session"@en, "Relaciona algo a uma sessão legislativa"@pt .
 
 :hasMembership rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
-    rdfs:range :Membership .
+    rdfs:range :Membership ;
+    rdfs:label "has membership"@en, "tem afiliação"@pt ;
+    dct:description "Relates something to a membership it holds"@en, "Relaciona algo a algo a uma afiliação"@pt .
 
 :isMemberOf rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;
-    rdfs:domain :Membership .
+    rdfs:domain :Membership ;
+    rdfs:label "is member of"@en, "é membro de"@pt ;
+    dct:description "Relates a membership to something it is member of"@en, "Relaciona uma afiliação a algo a que é afiliado"@pt .
 
 :holdsDuty rdf:type owl:ObjectProperty ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/core#> ;

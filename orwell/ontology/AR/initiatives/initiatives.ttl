@@ -42,19 +42,19 @@
 
 :RegionalLegislativeAssembly rdf:type owl:Class ;
 	rdfs:label "Assembleia Legislativa Regional"@pt ,"Regional Legislative Assembly"@en ;
-	dct:description ""@pt , ""@en ;
+	dct:description "Uma assembleia legislativa regional"@pt , "A regional legislative assembley"@en ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> .
 
 :Initiative rdf:type owl:Class ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , ""@en ;
+	dct:description "Uma iniciativa apresentada no Parlamento"@pt , "An initiative presented in Parliament"@en ;
     rdfs:label "Initiative"@en ,
                "Iniciativa"@pt ;
     rdfs:subClassOf ocd:atto .
 
 :EuropeanInitiative rdf:type owl:Class ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , ""@en ;
+	dct:description "Uma iniciativa apresentada no Parlamento Europeu"@pt , "An initiative presented in the European Parliament"@en ;
     rdfs:label "European Initiative"@en ,
                "Iniciativa Europeia"@pt ;
     rdfs:subClassOf ocd:atto .
@@ -92,7 +92,7 @@
 
 :ParliamentaryAppreciation rdf:type owl:Class ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , ""@en ;
+	dct:description "Uma apreciação parlamentar"@pt , "A parliamentary appreciation"@en ;
     rdfs:label "Parliamentary Appreciation"@en ,
                "Apreciação Parlamentar"@pt ;
     rdfs:subClassOf :Initiative .
@@ -115,7 +115,7 @@
 
 :Ratification rdf:type owl:Class ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/initiatives#> ;
-	dct:description ""@pt , ""@en ;
+	dct:description "Uma ratificação"@pt , "A ratification"@en ;
     rdfs:label "Ratification"@en ,
                "Ratificação"@pt ;
     rdfs:subClassOf :Initiative .

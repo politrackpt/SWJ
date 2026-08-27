@@ -18,7 +18,7 @@
 :	
 	a                           	<http://purl.org/vocommons/voaf#Vocabulary> , owl:Ontology ;
 	dct:title                   	"Portuguese Political Structures Ontology";
-	dct:description             	"This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
+	dct:description             	"This is the Biographical-Profile module from the Portuguese Political Structures (POLIS) Ontology. This ontology enables the modelling of data relating to the biography of members of the Portuguese Parliament within the context of the Portuguese Parliament."@en,
                                     "Este é o módulo Biographical-Profile (Perfil Biográfico) da ontologia Portuguese Political Structures (POLIS). Esta ontologia permite a modelação de dados relativos à biografia dos deputados da Assembleia da República Portuguesa no contexto da Assembleia da República Portuguesa."@pt;
 	dct:creator                 	"Tiago Ribeiro de Sá Cruz", "João Miguel da Silva Lourenço", "Mariana Curado Malta";
 	dct:contributor                 "João Bispo";
@@ -61,7 +61,7 @@
     rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
     rdfs:label "Habilitation Status"@en, "Status de Habilitação"@pt ;
     dct:description "The status of habilitation of an MP"@en, "O estado da habilitação de um MP"@pt ;
-    owl:oneOf ( :Complete :Incomplete ) .
+    owl:oneOf ( :C :F ) .
 
 :PublishedWork rdf:type owl:Class ;
     rdfs:isDefinedBy <http://purl.org/polis/ar/biographical-profile#> ;
