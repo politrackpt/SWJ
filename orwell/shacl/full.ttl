@@ -1124,7 +1124,7 @@ _:EventShape a sh:NodeShape ;
     ] ;
 
     sh:property [
-        sh:class polis-ini:receivedAppeal ;
+        sh:path polis-ini:receivedAppeal ;
         sh:or (
             [sh:class m4s:Parliamentarian]
             [sh:class polis-core:ParliamentaryGroup]

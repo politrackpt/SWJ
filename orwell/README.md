@@ -20,6 +20,7 @@ Extracts information from Portuguese open government data sources and generates 
 After compiling the package, Orwell can also be ran using:
 
 ```sh
+./gradlew instalDist
 ./build/install/orwell/bin/orwell
 ```
 
