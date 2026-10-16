@@ -5,7 +5,6 @@ Extracts information from Portuguese open government data sources and generates 
 ## Prerequisites
 
 - **Local:** JDK 21+
-- **Docker:** Docker installed
 - Internet access on first build (Gradle dependencies)
 
 ## Build & Run
@@ -18,18 +17,10 @@ Extracts information from Portuguese open government data sources and generates 
 ./gradlew test         # Run tests
 ```
 
-### Docker
+After compiling the package, Orwell can also be ran using:
 
 ```sh
-docker build -t orwell .
-docker run --rm orwell
-```
-
-Keep generated output on the host:
-
-```sh
-mkdir -p output
-docker run --rm -v "$(pwd)/output:/app/output" orwell
+./build/install/orwell/bin/orwell
 ```
 
 ## CLI Flags
