@@ -140,14 +140,14 @@
             fnml:functionValue [
                 rr:predicateObjectMap [
                     rr:predicate fno:executes ;
-                    rr:objectMap [ rr:constant pofn:toXsdDateTime ]
+                    rr:objectMap [ rr:constant pofn:toXsdDate ]
                 ] ;
                 rr:predicateObjectMap [
-                    rr:predicate pofn:inputDateTime ;
+                    rr:predicate pofn:inputDate ;
                     rr:objectMap [ rml:reference "ActDtdeb" ]
                 ]
             ] ;
-            rr:datatype xsd:dateTime
+            rr:datatype xsd:date
         ]
     ] ;
 

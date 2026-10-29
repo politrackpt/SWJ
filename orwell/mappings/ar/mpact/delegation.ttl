@@ -303,7 +303,7 @@
         ]
     ] ;
 
-    # Date Period (with conversion to xsd:dateTime)
+    # Date Period (with conversion to xsd:date)
     rr:predicateObjectMap [
         rr:predicate dct:date ;
         rr:objectMap [
@@ -319,14 +319,14 @@
                         fnml:functionValue [
                             rr:predicateObjectMap [
                                 rr:predicate fno:executes ;
-                                rr:objectMap [ rr:constant pofn:toXsdDateTime ]
+                                rr:objectMap [ rr:constant pofn:toXsdDate ]
                             ] ;
                             rr:predicateObjectMap [
-                                rr:predicate pofn:inputDateTime ;
+                                rr:predicate pofn:inputDate ;
                                 rr:objectMap [ rml:reference "DevDtini" ]
                             ]
                         ] ;
-                        rr:datatype xsd:dateTime
+                        rr:datatype xsd:date
                     ]
                 ] ;
                 rr:predicateObjectMap [
@@ -335,14 +335,14 @@
                         fnml:functionValue [
                             rr:predicateObjectMap [
                                 rr:predicate fno:executes ;
-                                rr:objectMap [ rr:constant pofn:toXsdDateTime ]
+                                rr:objectMap [ rr:constant pofn:toXsdDate ]
                             ] ;
                             rr:predicateObjectMap [
-                                rr:predicate pofn:inputDateTime ;
+                                rr:predicate pofn:inputDate ;
                                 rr:objectMap [ rml:reference "DevDtfim" ]
                             ]
                         ] ;
-                        rr:datatype xsd:dateTime
+                        rr:datatype xsd:date
                     ]
                 ]
             ] ;
